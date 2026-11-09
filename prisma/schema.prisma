@@ -3,22 +3,26 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native"]
+  engineType = "binary"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url = env("DATABASE_URL")
 }
 
 model User {
+  holdings    Holding[]
+  grids       Grid[]
+  snapshots   PortfolioSnapshot[]
   id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
   role      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  holdings  Holding[]
-  snapshots     PortfolioSnapshot[]
+
 
 }
 
@@ -44,7 +48,7 @@ model Grid {
   id               Int      @id @default(autoincrement())
   user             User     @relation(fields: [userId], references: [id])
   userId           Int
-  orderNumber      String
+  orderNumber      String @unique
   memo             String?
   pair             String
   side             String

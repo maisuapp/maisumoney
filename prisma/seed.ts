@@ -1,5 +1,5 @@
 // prisma/seed.ts
-import { PrismaClient, Role } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -11,7 +11,7 @@ async function main() {
     create: {
       name: "Shirley (Master Admin)",
       email: "maisuapp@gmail.com",
-      role: Role.MASTER_ADMIN,
+      role: "MASTER_ADMIN",
     },
   });
 
@@ -22,7 +22,7 @@ async function main() {
     create: {
       name: "Standard User",
       email: "standard@example.com",
-      role: Role.STANDARD_USER,
+      role: "STANDARD_USER",
     },
   });
 
@@ -134,11 +134,8 @@ async function main() {
 
   await prisma.grid.upsert({
     where: { orderNumber: usdJpyGrid.orderNumber },
-    update: {},
-    create: {
-      ...usdJpyGrid,
-      userId: master.id,
-    },
+    update: { ...usdJpyGrid },
+    create: { ...usdJpyGrid, userId: master.id },
   });
 
   // You could add the GBP/JPY grid similarly if needed.

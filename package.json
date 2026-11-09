@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "seed": "npx ts-node prisma/seed.ts",
-    "postinstall": "prisma generate && prisma migrate deploy",
+    "postinstall": "prisma generate",
+    "postdeploy": "prisma migrate deploy",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -26,6 +27,7 @@
     "zustand": "^4.5.7"
   },
   "devDependencies": {
+    "@neon/config": "^1.13.0",
     "@prisma/client": "^6.19.1",
     "@prisma/engines": "^6.19.1",
     "@tailwindcss/turbopack": "^4",
