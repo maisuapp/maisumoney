@@ -138,6 +138,14 @@ async function main() {
     create: { ...usdJpyGrid, userId: master.id },
   });
 
+  // Add a second Toraripi grid (duplicate with different orderNumber)
+  const secondGrid = { ...usdJpyGrid, orderNumber: "600000000699491", memo: "USD/JPY_2,1000_22_2026/04/01" };
+  await prisma.grid.upsert({
+    where: { orderNumber: secondGrid.orderNumber },
+    update: { ...secondGrid },
+    create: { ...secondGrid, userId: master.id },
+  });
+
   // You could add the GBP/JPY grid similarly if needed.
 
   // Snapshot for Toraripi
